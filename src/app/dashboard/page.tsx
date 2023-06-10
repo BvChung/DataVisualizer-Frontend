@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import LineGraph from "@/components/LineGraph";
+import LineChart from "@/components/charts/LineChart";
+import ScatterChart from "@/components/charts/ScatterChart";
 
 type Data = {
 	userId: Number;
@@ -23,21 +24,10 @@ export default async function Page() {
 	// const data = await getInfo();
 
 	return (
-		<div className="w-full">
-			<div className="justify-items-center items-center gap-4 flex">
-				<LineGraph />
-				{/* {data.map((el: Data) => {
-					return (
-						<Link
-							href={`/${el.id}`}
-							className="flex flex-col items-center w-96 rounded-md border-white border-[1px]"
-							key={el.id as React.Key}
-						>
-							<h3 className="text-xl font-medium mb-4">{el.title}</h3>
-							<p>{el.body}</p>
-						</Link>
-					);
-				})} */}
+		<div className="w-full bg-slate-800">
+			<div className="justify-items-center items-center gap-4 flex flex-col">
+				<LineChart />
+				<ScatterChart />
 			</div>
 		</div>
 	);
