@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
 	Chart as ChartJS,
 	CategoryScale,
@@ -14,12 +14,11 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import {
+	MonthlyData,
 	generateLineData,
 	generateNumLabel,
 	getRandInteger,
-} from "@/utils/generateInteger";
-import { LineChartDisplay } from "@/types/chart";
-import type { ChartData, ChartOptions } from "chart.js";
+} from "@/utils/generateData";
 
 ChartJS.register(
 	CategoryScale,
@@ -32,7 +31,7 @@ ChartJS.register(
 	Legend
 );
 
-export const options = {
+const options = {
 	responsive: true,
 	scales: {
 		y: {
@@ -43,7 +42,7 @@ export const options = {
 		},
 		x: {
 			grid: {
-				color: "rgb(255, 255, 255, 0)",
+				display: false,
 			},
 		},
 	},
@@ -58,9 +57,9 @@ export const options = {
 	},
 };
 
-const chartBackground = {
-	id: "chartBackground",
-	beforeDatasetsDraw(chart: any, args: any, pluginOptions: any) {
+const chartBackgroundPlugin = {
+	id: "chartBackgroundColor",
+	beforeDatasetsDraw(chart: any, args: any, options: any) {
 		const {
 			ctx,
 			chartArea: { top, left, width, height },
@@ -69,71 +68,99 @@ const chartBackground = {
 		ctx.save();
 		ctx.fillStyle = "rgb(255, 255, 255, .2)";
 		ctx.fillRect(left, top, width, height);
+		ctx.restore();
 	},
 };
 
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
+type LineChartProps = {
+	labels: string[];
+	datasets: {
+		fill?: boolean;
+		label: string;
+		data: MonthlyData[];
+		borderColor?: string;
+		backgroundColor: string;
+	}[];
+};
 
-export default function LineGraph() {
-	const [chartData, setChartData] = useState<LineChartDisplay>({
-		labels: generateNumLabel(0, 50),
-		datasets: [
-			{
-				fill: true,
-				label: "Dataset 1",
-				data: generateLineData(50, 200, 1000),
-				borderColor: "rgb(255, 99, 132)",
-				backgroundColor: "rgb(255, 99, 132, .2)",
-			},
-			// {
-			// 	label: "Dataset 2",
-			// 	data: labels.map(() => getRandInteger(-1000, 1000)),
-			// 	borderColor: "rgb(53, 162, 235)",
-			// 	backgroundColor: "rgb(53, 162, 235)",
-			// },
-			// {
-			// 	label: "Dataset 3",
-			// 	data: labels.map(() => getRandInteger(-1000, 1000)),
-			// 	borderColor: "rgb(75, 192, 192)",
-			// 	backgroundColor: "rgb(75, 192, 192)",
-			// },
-		],
+export default function LineChart({ labels, datasets }: LineChartProps) {
+	const [chartData, setChartData] = useState<LineChartProps>({
+		labels,
+		datasets,
+	});
+	console.log(chartData);
+
+	const [netGain, setNetGain] = useState({
+		initialValue: datasets[0].data[0].value,
+		gain:
+			datasets[0].data[datasets[0].data.length - 1].value -
+			datasets[0].data[0].value,
 	});
 
-	function addDataSet() {
-		const pixelValue = `rgb(${getRandInteger(0, 255)},${getRandInteger(
-			0,
-			255
-		)},${getRandInteger(0, 255)})`;
+	// useEffect(() => {
+	// 	const interval = setInterval(() => {
+	// 		addData();
+	// 	}, 2000);
 
-		const newData = {
-			label: `Dataset ${chartData.datasets.length + 1}`,
-			data: labels.map(() => getRandInteger(-1000, 1000)),
-			borderColor: pixelValue,
-			backgroundColor: pixelValue,
+	// 	return () => {
+	// 		clearInterval(interval);
+	// 	};
+	// }, []);
+
+	function addData() {
+		const lastDataPointMonth =
+			chartData.datasets[0].data[chartData.datasets[0].data.length - 1].month;
+		const newDataPoint = {
+			month: lastDataPointMonth === 12 ? 1 : lastDataPointMonth + 1,
+			value: getRandInteger(300, 1000),
 		};
-
 		setChartData((prev) => {
-			return { labels: prev.labels, datasets: [...prev.datasets, newData] };
+			return {
+				labels: [
+					...prev.labels.slice(1, -1),
+					`${+prev.labels[prev.labels.length - 1] + 1}`,
+				],
+				datasets: [
+					{
+						...prev.datasets[0],
+						data: [...prev.datasets[0].data.slice(1, -1), newDataPoint],
+					},
+				],
+			};
+		});
+
+		setNetGain((prev) => {
+			return {
+				...prev,
+				gain: newDataPoint.value - prev.initialValue,
+			};
 		});
 	}
 
 	return (
-		<div className="">
+		<div>
 			<figure className="w-[800px] h-[400px] mb-8">
 				<Line
 					datasetIdKey="lineId"
 					options={options}
-					data={chartData}
-					plugins={[chartBackground]}
+					data={{
+						labels: chartData.labels,
+						datasets: chartData.datasets.map((set) => {
+							return {
+								...set,
+								data: generateLineData(12, 400, 1000),
+							};
+						}),
+					}}
+					plugins={[chartBackgroundPlugin]}
 				/>
 			</figure>
-
+			<div>Net Gain {netGain.gain}</div>
 			<button
-				onClick={addDataSet}
-				className="rounded-md w-fit p-2 border-[1px] border-gray-700"
+				onClick={addData}
+				className="border-2 rounded-md border-gray-500 p-2"
 			>
-				Add dataset
+				Add
 			</button>
 		</div>
 	);

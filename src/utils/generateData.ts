@@ -24,6 +24,25 @@ export function generateLineData(dataSize: number, min: number, max: number) {
 	return data;
 }
 
+export type MonthlyData = {
+	month: number;
+	value: number;
+};
+export function generateMonthlyLineData(min: number, max: number) {
+	const data: MonthlyData[] = [];
+	let monthCounter = 1;
+
+	for (let i = 0; i < 12; i++) {
+		if (i > 0 && data[i - 1].month === 12) {
+			monthCounter = 1;
+		}
+		data.push({ month: monthCounter, value: getRandInteger(min, max) });
+		monthCounter += 1;
+	}
+
+	return data;
+}
+
 export function generateScatterData(
 	dataSize: number,
 	min: number,

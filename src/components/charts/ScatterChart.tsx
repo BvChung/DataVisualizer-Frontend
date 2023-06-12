@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { generateScatterData } from "@/utils/generateInteger";
+import { generateScatterData } from "@/utils/generateData";
 import {
 	Chart as ChartJS,
 	LinearScale,
