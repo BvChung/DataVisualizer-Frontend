@@ -2,6 +2,8 @@ import React from "react";
 import Link from "next/link";
 import LineChart from "@/components/charts/LineChart";
 import ScatterChart from "@/components/charts/ScatterChart";
+import { monthMap } from "@/utils/months";
+import { generateMonthlyLineData } from "@/utils/generateData";
 
 type Data = {
 	userId: Number;
@@ -21,12 +23,21 @@ const getInfo = async () => {
 };
 
 export default async function Page() {
-	// const data = await getInfo();
-
 	return (
-		<div className="w-full bg-slate-800">
+		<div className="bg-slate-800">
 			<div className="justify-items-center items-center gap-4 flex flex-col">
-				<LineChart />
+				<LineChart
+					labels={Object.values(monthMap)}
+					datasets={[
+						{
+							fill: true,
+							label: "Dataset 1",
+							data: generateMonthlyLineData(300, 1000),
+							borderColor: "rgb(75, 192, 192)",
+							backgroundColor: "rgb(75, 192, 192, .2)",
+						},
+					]}
+				/>
 				<ScatterChart />
 			</div>
 		</div>
