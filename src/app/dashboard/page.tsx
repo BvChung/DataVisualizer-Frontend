@@ -1,9 +1,12 @@
 import React from "react";
 import Link from "next/link";
-import LineChart from "@/components/charts/LineChart";
+import AreaChart from "@/components/charts/AreaChart";
 import ScatterChart from "@/components/charts/ScatterChart";
-import { monthMap } from "@/utils/months";
-import { generateMonthlyLineData } from "@/utils/generateData";
+import { generateMonthLabel, monthMap } from "@/utils/months";
+import {
+	generateLineData,
+	generateMonthlyLineData,
+} from "@/utils/generateData";
 
 type Data = {
 	userId: Number;
@@ -23,20 +26,22 @@ const getInfo = async () => {
 };
 
 export default async function Page() {
+	const data = generateLineData(12, 300, 2000);
 	return (
-		<div className="bg-slate-800">
+		<div className="bg-dark5">
 			<div className="justify-items-center items-center gap-4 flex flex-col">
-				<LineChart
-					labels={Object.values(monthMap)}
+				<AreaChart
+					labels={generateMonthLabel(data)}
 					datasets={[
 						{
 							fill: true,
 							label: "Dataset 1",
-							data: generateMonthlyLineData(300, 1000),
+							data: data,
 							borderColor: "rgb(75, 192, 192)",
 							backgroundColor: "rgb(75, 192, 192, .2)",
 						},
 					]}
+					monthTracker={data.length}
 				/>
 				<ScatterChart />
 			</div>
