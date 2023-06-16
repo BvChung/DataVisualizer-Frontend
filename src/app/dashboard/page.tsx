@@ -28,8 +28,8 @@ const getInfo = async () => {
 export default async function Page() {
 	const data = generateLineData(12, 300, 2000);
 	return (
-		<div className="bg-dark5">
-			<div className="justify-items-center items-center gap-4 flex flex-col">
+		<div className="bg-dark5 h-full">
+			<div className="ml-5 mt-5">
 				<AreaChart
 					labels={generateMonthLabel(data)}
 					datasets={[
@@ -43,7 +43,6 @@ export default async function Page() {
 					]}
 					monthTracker={data.length}
 				/>
-				<ScatterChart />
 			</div>
 		</div>
 	);

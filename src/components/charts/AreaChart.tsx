@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import {
 	Chart as ChartJS,
 	CategoryScale,
@@ -32,25 +32,49 @@ const options = {
 	scales: {
 		y: {
 			beginAtZero: true,
+
 			grid: {
-				color: "rgb(255, 255, 255, .5)",
+				color: "rgb(255, 255, 255, .6)",
+			},
+			ticks: {
+				color: "rgb(255, 255, 255, .6)",
 			},
 		},
 		x: {
+			color: "red",
 			grid: {
 				display: false,
+			},
+			ticks: {
+				color: "rgb(255, 255, 255, .6)",
+				// font: {
+				// 	size: 14,
+				// },
 			},
 		},
 	},
 	plugins: {
 		legend: {
 			position: "top" as const,
+			labels: {
+				// This more specific font property overrides the global property
+				font: {
+					size: 14,
+				},
+				color: "rgb(255, 255, 255, .6)",
+			},
 		},
 		title: {
 			display: true,
-			text: "Chart.js Line Chart",
+			text: "Stock Simulator",
+			color: "rgb(255, 255, 255, .6)",
 		},
 	},
+};
+
+type Plugin = {
+	id: string;
+	beforeDatasetsDraw(chart: any, args: any, options: any): void;
 };
 
 const chartBackgroundPlugin = {
@@ -62,7 +86,7 @@ const chartBackgroundPlugin = {
 		} = chart;
 
 		ctx.save();
-		ctx.fillStyle = "rgb(255, 255, 255, .1)";
+		ctx.fillStyle = "rgb(255, 255, 255, 0)";
 		ctx.fillRect(left, top, width, height);
 		ctx.restore();
 	},
@@ -97,6 +121,7 @@ export default function AreaChart({
 	datasets,
 	monthTracker,
 }: LineChartProps) {
+	const chartRef = useRef<ChartJS<"line">>();
 	const [chartData, setChartData] = useState<AreaChartData>({
 		labels,
 		datasets,
@@ -106,6 +131,21 @@ export default function AreaChart({
 	const [netGain, setNetGain] = useState({
 		initialValue: datasets[0].data[0],
 		gain: datasets[0].data[datasets[0].data.length - 1] - datasets[0].data[0],
+	});
+
+	const [bgPlugin, setBgPlugin] = useState<Plugin>({
+		id: "chartBackgroundColor",
+		beforeDatasetsDraw(chart: any, args: any, options: any) {
+			const {
+				ctx,
+				chartArea: { top, left, width, height },
+			} = chart;
+
+			ctx.save();
+			ctx.fillStyle = "rgb(255, 255, 255, .1)";
+			ctx.fillRect(left, top, width, height);
+			ctx.restore();
+		},
 	});
 
 	const addData = useCallback(() => {
@@ -143,7 +183,7 @@ export default function AreaChart({
 	}, [addData]);
 
 	return (
-		<div>
+		<div className="flex items-center justify-center rounded-lg bg-gray2 w-fit p-4">
 			<figure className="w-[800px] h-[400px] mb-8">
 				<Line
 					datasetIdKey="lineId"
@@ -152,13 +192,16 @@ export default function AreaChart({
 					plugins={[chartBackgroundPlugin]}
 				/>
 			</figure>
-			<div>Net Gain {netGain.gain}</div>
-			<button
-				onClick={addData}
-				className="border-2 rounded-md border-gray-500 p-2"
-			>
-				Add
-			</button>
+
+			<div className="bg-gray2 ml-4 border-l border-gray-400 p-4">
+				<div className="h-80 w-44 text-white">Net Gain {netGain.gain}</div>
+				<button
+					onClick={addData}
+					className="border-2 rounded-md border-gray-500 p-2"
+				>
+					Add
+				</button>
+			</div>
 		</div>
 	);
 }

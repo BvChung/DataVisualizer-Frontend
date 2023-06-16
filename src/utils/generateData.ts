@@ -17,7 +17,7 @@ export function demoFunction(lowerBound: number, upperBound: number) {
 export function generateLineData(dataSize: number, min: number, max: number) {
 	const data: number[] = [];
 
-	for (let i = 0; i < dataSize + 1; i++) {
+	for (let i = 0; i < dataSize; i++) {
 		data.push(getRandInteger(min, max));
 	}
 
