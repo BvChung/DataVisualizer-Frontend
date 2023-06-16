@@ -14,7 +14,7 @@ module.exports = {
 			},
 			colors: {
 				gray1: "#212529",
-				gray2: "#424242",
+				gray2: "#363842",
 				gray3: "#616161",
 				gray4: "#D9D9D9",
 				gray5: "#bdbdbd",
@@ -30,7 +30,7 @@ module.exports = {
 				dark3: "#141414",
 				dark4: "#18181b",
 				dark5: "#1c1c1c",
-				dark7: "#343434",
+				dark7: "#202124",
 			},
 		},
 	},
