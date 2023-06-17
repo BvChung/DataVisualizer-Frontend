@@ -57,7 +57,6 @@ const options = {
 		legend: {
 			position: "top" as const,
 			labels: {
-				// This more specific font property overrides the global property
 				font: {
 					size: 14,
 				},
@@ -70,11 +69,6 @@ const options = {
 			color: "rgb(255, 255, 255, .6)",
 		},
 	},
-};
-
-type Plugin = {
-	id: string;
-	beforeDatasetsDraw(chart: any, args: any, options: any): void;
 };
 
 const chartBackgroundPlugin = {
@@ -92,19 +86,7 @@ const chartBackgroundPlugin = {
 	},
 };
 
-type LineChartProps = {
-	labels: string[];
-	datasets: {
-		fill?: boolean;
-		label: string;
-		data: number[];
-		borderColor?: string;
-		backgroundColor: string;
-	}[];
-	monthTracker: number;
-};
-
-type AreaChartData = {
+type AreaChartProps = {
 	labels: string[];
 	datasets: {
 		fill?: boolean;
@@ -120,9 +102,9 @@ export default function AreaChart({
 	labels,
 	datasets,
 	monthTracker,
-}: LineChartProps) {
+}: AreaChartProps) {
 	const chartRef = useRef<ChartJS<"line">>();
-	const [chartData, setChartData] = useState<AreaChartData>({
+	const [chartData, setChartData] = useState<AreaChartProps>({
 		labels,
 		datasets,
 		monthTracker,
@@ -131,21 +113,6 @@ export default function AreaChart({
 	const [netGain, setNetGain] = useState({
 		initialValue: datasets[0].data[0],
 		gain: datasets[0].data[datasets[0].data.length - 1] - datasets[0].data[0],
-	});
-
-	const [bgPlugin, setBgPlugin] = useState<Plugin>({
-		id: "chartBackgroundColor",
-		beforeDatasetsDraw(chart: any, args: any, options: any) {
-			const {
-				ctx,
-				chartArea: { top, left, width, height },
-			} = chart;
-
-			ctx.save();
-			ctx.fillStyle = "rgb(255, 255, 255, .1)";
-			ctx.fillRect(left, top, width, height);
-			ctx.restore();
-		},
 	});
 
 	const addData = useCallback(() => {
