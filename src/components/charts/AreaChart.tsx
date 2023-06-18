@@ -15,6 +15,7 @@ import {
 import { Line } from "react-chartjs-2";
 import { getRandInteger } from "@/utils/generateData";
 import { monthMap } from "@/utils/months";
+import { IconArrowNarrowUp, IconArrowNarrowDown } from "@tabler/icons-react";
 
 ChartJS.register(
 	CategoryScale,
@@ -65,8 +66,11 @@ const options = {
 		},
 		title: {
 			display: true,
-			text: "Stock Simulator",
+			text: "Stock Market Simulator",
 			color: "rgb(255, 255, 255, .6)",
+			font: {
+				size: 16,
+			},
 		},
 	},
 };
@@ -110,13 +114,17 @@ export default function AreaChart({
 		monthTracker,
 	});
 
-	const [netGain, setNetGain] = useState({
+	const [dataStatistics, setdataStatistics] = useState({
 		initialValue: datasets[0].data[0],
-		gain: datasets[0].data[datasets[0].data.length - 1] - datasets[0].data[0],
+		currentValue: datasets[0].data[0],
+		maxValue: datasets[0].data[0],
+		minValue: datasets[0].data[0],
+		performance:
+			datasets[0].data[datasets[0].data.length - 1] - datasets[0].data[0],
 	});
 
 	const addData = useCallback(() => {
-		const newDataPoint = getRandInteger(300, 1000);
+		const newDataPoint = getRandInteger(300, 2000);
 		setChartData((prev) => {
 			const newMonth = prev.monthTracker === 12 ? 1 : prev.monthTracker + 1;
 			return {
@@ -131,10 +139,13 @@ export default function AreaChart({
 			};
 		});
 
-		setNetGain((prev) => {
+		setdataStatistics((prev) => {
 			return {
 				...prev,
-				gain: newDataPoint - prev.initialValue,
+				currentValue: newDataPoint,
+				maxValue: Math.max(prev.maxValue, newDataPoint),
+				minValue: Math.min(prev.minValue, newDataPoint),
+				performance: newDataPoint - prev.initialValue,
 			};
 		});
 	}, []);
@@ -151,7 +162,7 @@ export default function AreaChart({
 
 	return (
 		<div className="flex items-center justify-center rounded-lg bg-gray2 w-fit p-4">
-			<figure className="w-[800px] h-[400px] mb-8">
+			<figure className="flex items-center justify-center w-[750px] h-[350px] mb-8">
 				<Line
 					datasetIdKey="lineId"
 					options={options}
@@ -160,14 +171,48 @@ export default function AreaChart({
 				/>
 			</figure>
 
-			<div className="bg-gray2 ml-4 border-l border-gray-400 p-4">
-				<div className="h-80 w-44 text-white">Net Gain {netGain.gain}</div>
-				<button
-					onClick={addData}
-					className="border-2 rounded-md border-gray-500 p-2"
-				>
-					Add
-				</button>
+			<div className="bg-gray2 ml-2 border-l border-gray-400 px-4">
+				<div className="flex flex-col gap-4 h-80 w-56 text-gray-300">
+					<div className="flex justify-between items-center w-full">
+						<p className="font-medium">Value</p>
+						<p className="text-xl font-medium">
+							{dataStatistics.currentValue.toFixed(2)}
+						</p>
+					</div>
+					<div className="flex justify-between w-full">
+						<p className="font-medium">Performance</p>
+
+						<div
+							className={`${
+								dataStatistics.performance > 0
+									? "text-green-600"
+									: "text-red-700"
+							} flex`}
+						>
+							{dataStatistics.performance > 0 ? (
+								<IconArrowNarrowUp />
+							) : (
+								<IconArrowNarrowDown />
+							)}
+							{dataStatistics.performance.toFixed(2)}
+						</div>
+					</div>
+
+					<div className="flex justify-between w-full">
+						<p className="font-medium">Open</p>
+						<p>{dataStatistics.initialValue.toFixed(2)}</p>
+					</div>
+
+					<div className="flex justify-between w-full">
+						<p className="font-medium">High</p>
+						<p>{dataStatistics.maxValue.toFixed(2)}</p>
+					</div>
+
+					<div className="flex justify-between w-full">
+						<p className="font-medium">Low</p>
+						<p>{dataStatistics.minValue.toFixed(2)}</p>
+					</div>
+				</div>
 			</div>
 		</div>
 	);
