@@ -16,6 +16,7 @@ import { Line } from "react-chartjs-2";
 import { getRandInteger } from "@/utils/generateData";
 import { monthMap } from "@/utils/months";
 import { IconArrowNarrowUp, IconArrowNarrowDown } from "@tabler/icons-react";
+import { useTheme as useNextThemes } from "next-themes";
 
 ChartJS.register(
 	CategoryScale,
@@ -27,53 +28,6 @@ ChartJS.register(
 	Filler,
 	Legend
 );
-
-const options = {
-	responsive: true,
-	scales: {
-		y: {
-			beginAtZero: true,
-
-			grid: {
-				color: "rgb(255, 255, 255, .6)",
-			},
-			ticks: {
-				color: "rgb(255, 255, 255, .6)",
-			},
-		},
-		x: {
-			color: "red",
-			grid: {
-				display: false,
-			},
-			ticks: {
-				color: "rgb(255, 255, 255, .6)",
-				// font: {
-				// 	size: 14,
-				// },
-			},
-		},
-	},
-	plugins: {
-		legend: {
-			position: "top" as const,
-			labels: {
-				font: {
-					size: 14,
-				},
-				color: "rgb(255, 255, 255, .6)",
-			},
-		},
-		title: {
-			display: true,
-			text: "Stock Market Simulator",
-			color: "rgb(255, 255, 255, .6)",
-			font: {
-				size: 16,
-			},
-		},
-	},
-};
 
 const chartBackgroundPlugin = {
 	id: "chartBackgroundColor",
@@ -107,7 +61,7 @@ export default function AreaChart({
 	datasets,
 	monthTracker,
 }: AreaChartProps) {
-	const chartRef = useRef<ChartJS<"line">>();
+	const { theme } = useNextThemes();
 	const [chartData, setChartData] = useState<AreaChartProps>({
 		labels,
 		datasets,
@@ -160,9 +114,59 @@ export default function AreaChart({
 		};
 	}, [addData]);
 
+	const themeColor =
+		theme === "dark" ? "rgb(255, 255, 255, .6)" : "rgb(31, 41, 55, .7)";
+
+	const options = {
+		responsive: true,
+		scales: {
+			y: {
+				beginAtZero: true,
+
+				grid: {
+					color: themeColor,
+				},
+				ticks: {
+					color: themeColor,
+				},
+			},
+			x: {
+				color: "red",
+				grid: {
+					display: false,
+				},
+				ticks: {
+					color: themeColor,
+					// font: {
+					// 	size: 14,
+					// },
+				},
+			},
+		},
+		plugins: {
+			legend: {
+				position: "top" as const,
+				labels: {
+					font: {
+						size: 14,
+					},
+					color: themeColor,
+				},
+			},
+			title: {
+				display: true,
+				text: "Stock Market Simulator",
+				color: themeColor,
+				font: {
+					size: 16,
+				},
+			},
+		},
+	};
+
 	return (
-		<div className="flex items-center justify-center rounded-lg bg-gray2 w-fit p-4">
-			<figure className="flex items-center justify-center w-[750px] h-[350px] mb-8">
+		<div className="flex items-center justify-center rounded-lg bg-gray-100 dark:bg-gray2 w-fit p-4">
+			<figure className="flex items-center justify-center w-[700px] h-[320px] mb-8">
 				<Line
 					datasetIdKey="lineId"
 					options={options}
@@ -171,11 +175,11 @@ export default function AreaChart({
 				/>
 			</figure>
 
-			<div className="bg-gray2 ml-2 border-l border-gray-400 px-4">
-				<div className="flex flex-col gap-4 h-80 w-56 text-gray-300">
+			<div className="ml-2 border-l border-gray-400 px-4">
+				<div className="flex flex-col gap-4 h-80 w-56 text-gray-800 dark:text-gray-300">
 					<div className="flex justify-between items-center w-full">
 						<p className="font-medium">Value</p>
-						<p className="text-xl font-medium">
+						<p className="font-medium">
 							{dataStatistics.currentValue.toFixed(2)}
 						</p>
 					</div>
@@ -186,7 +190,7 @@ export default function AreaChart({
 							className={`${
 								dataStatistics.performance > 0
 									? "text-green-600"
-									: "text-red-700"
+									: "text-red-600"
 							} flex`}
 						>
 							{dataStatistics.performance > 0 ? (
