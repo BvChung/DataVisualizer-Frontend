@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTheme } from "next-themes";
 import {
 	Navbar,
 	Center,
@@ -21,12 +22,13 @@ import {
 	IconLogout,
 	IconSwitchHorizontal,
 	IconBrandAmongUs,
+	IconSun,
 } from "@tabler/icons-react";
 
 const useStyles = createStyles((theme) => ({
 	link: {
-		width: rem(50),
-		height: rem(50),
+		width: rem(40),
+		height: rem(40),
 		borderRadius: theme.radius.md,
 		display: "flex",
 		alignItems: "center",
@@ -66,12 +68,17 @@ type NavbarLinkProps = {
 function NavbarLink({ icon: Icon, label, active, onClick }: NavbarLinkProps) {
 	const { classes, cx } = useStyles();
 	return (
-		<Tooltip label={label} position="right" transitionProps={{ duration: 0 }}>
+		<Tooltip
+			label={label}
+			withArrow
+			position="right"
+			transitionProps={{ duration: 0 }}
+		>
 			<UnstyledButton
 				onClick={onClick}
 				className={cx(classes.link, { [classes.active]: active })}
 			>
-				<Icon size="1.2rem" stroke={1.5} />
+				<Icon size="1.4rem" stroke={1.5} />
 			</UnstyledButton>
 		</Tooltip>
 	);
@@ -87,8 +94,9 @@ const mockdata = [
 	{ icon: IconSettings, label: "Settings" },
 ];
 
-export function NavbarMinimal() {
+export default function SideNav() {
 	const [active, setActive] = useState(2);
+	const { theme, setTheme } = useTheme();
 
 	const links = mockdata.map((link, index) => (
 		<NavbarLink
@@ -100,19 +108,19 @@ export function NavbarMinimal() {
 	));
 
 	return (
-		<Navbar width={{ base: 80 }} p="md" className="">
+		<Navbar
+			p="md"
+			className="dark:bg-dark4 border-0 fixed top-14 w-16 h-screen z-10 hidden md:block"
+		>
 			<Center>
-				<IconBrandAmongUs size={30} className="text-gray-800" />
+				<IconBrandAmongUs
+					size={30}
+					className="text-gray-800 dark:text-gray-300"
+				/>
 			</Center>
 			<Navbar.Section grow mt={50}>
-				<Stack justify="center" spacing={0}>
+				<Stack justify="center" spacing={0} className="gap-2 items-center">
 					{links}
-				</Stack>
-			</Navbar.Section>
-			<Navbar.Section>
-				<Stack justify="center" spacing={0}>
-					<NavbarLink icon={IconSwitchHorizontal} label="Change account" />
-					<NavbarLink icon={IconLogout} label="Logout" />
 				</Stack>
 			</Navbar.Section>
 		</Navbar>

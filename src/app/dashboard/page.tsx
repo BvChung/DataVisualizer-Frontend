@@ -2,18 +2,16 @@ import React from "react";
 import Link from "next/link";
 import AreaChart from "@/components/charts/AreaChart";
 import ScatterChart from "@/components/charts/ScatterChart";
-import { generateMonthLabel, monthMap } from "@/utils/months";
-import {
-	generateLineData,
-	generateMonthlyLineData,
-} from "@/utils/generateData";
+import { generateMonthLabel } from "@/utils/months";
+import { generateLineData } from "@/utils/generateData";
 import { generateColor } from "@/utils/generateColor";
 
-export default async function Page() {
+export default function Page() {
 	const data = generateLineData(12, 300, 2000);
 	return (
-		<div className="bg-dark5 h-full">
-			<div className="ml-5 my-5 flex flex-col gap-4">
+		<div className="h-full">
+			<Link href="/dashboard/simulator">sim</Link>
+			<div className="my-10 flex flex-col justify-center items-center gap-4">
 				{Array.from({ length: 2 }).map((_, index) => {
 					const color = generateColor();
 					const data = generateLineData(12, 1000, 3000);
