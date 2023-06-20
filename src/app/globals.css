@@ -4,6 +4,6 @@
 
 @layer base {
 	body {
-		@apply dark:bg-dark8 bg-white;
+		@apply dark:bg-dark7 bg-white;
 	}
 }
