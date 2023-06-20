@@ -110,7 +110,7 @@ export default function SideNav() {
 	return (
 		<Navbar
 			p="md"
-			className="dark:bg-dark4 border-0 fixed top-14 w-16 h-screen z-10 hidden md:block"
+			className="dark:bg-dark8 border-r border-r-gray1 fixed top-14 w-16 h-screen z-10 hidden md:block"
 		>
 			<Center>
 				<IconBrandAmongUs

@@ -1,5 +1,6 @@
 import SideNav from "@/components/nav/SideNav";
 import Nav from "@/components/nav/Nav";
+import Sidebar from "@/components/nav/SideBar";
 
 export default function DashboardLayout({
 	children,
@@ -10,8 +11,9 @@ export default function DashboardLayout({
 		<main className="">
 			<Nav />
 			<div className="flex">
-				<SideNav />
-				<div className="pl-20 flex flex-col w-full overflow-auto">
+				{/* <SideNav /> */}
+				<Sidebar />
+				<div className="pl-64 flex flex-col w-full overflow-auto">
 					{children}
 				</div>
 			</div>
