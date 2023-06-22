@@ -1,128 +1,34 @@
 "use client";
 
-import { useState } from "react";
-import { useTheme } from "next-themes";
 import {
-	Navbar,
-	Center,
-	Tooltip,
-	UnstyledButton,
-	createStyles,
-	Stack,
-	rem,
-} from "@mantine/core";
-import {
-	IconHome2,
-	IconGauge,
-	IconDeviceDesktopAnalytics,
-	IconFingerprint,
-	IconCalendarStats,
-	IconUser,
-	IconSettings,
-	IconLogout,
-	IconSwitchHorizontal,
-	IconBrandAmongUs,
-	IconSun,
+	IconChartAreaLineFilled,
+	IconReportAnalytics,
 } from "@tabler/icons-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-const useStyles = createStyles((theme) => ({
-	link: {
-		width: rem(40),
-		height: rem(40),
-		borderRadius: theme.radius.md,
-		display: "flex",
-		alignItems: "center",
-		justifyContent: "center",
-		color:
-			theme.colorScheme === "dark"
-				? theme.colors.dark[0]
-				: theme.colors.gray[7],
-
-		"&:hover": {
-			backgroundColor:
-				theme.colorScheme === "dark"
-					? theme.colors.dark[5]
-					: theme.colors.gray[0],
-		},
-	},
-
-	active: {
-		"&, &:hover": {
-			backgroundColor: theme.fn.variant({
-				variant: "light",
-				color: theme.primaryColor,
-			}).background,
-			color: theme.fn.variant({ variant: "light", color: theme.primaryColor })
-				.color,
-		},
-	},
-}));
-
-type NavbarLinkProps = {
-	icon: React.FC<any>;
-	label: string;
-	active?: boolean;
-	onClick?(): void;
-};
-
-function NavbarLink({ icon: Icon, label, active, onClick }: NavbarLinkProps) {
-	const { classes, cx } = useStyles();
-	return (
-		<Tooltip
-			label={label}
-			withArrow
-			position="right"
-			transitionProps={{ duration: 0 }}
-		>
-			<UnstyledButton
-				onClick={onClick}
-				className={cx(classes.link, { [classes.active]: active })}
-			>
-				<Icon size="1.4rem" stroke={1.5} />
-			</UnstyledButton>
-		</Tooltip>
-	);
-}
-
-const mockdata = [
-	{ icon: IconHome2, label: "Home" },
-	{ icon: IconGauge, label: "Dashboard" },
-	{ icon: IconDeviceDesktopAnalytics, label: "Analytics" },
-	{ icon: IconCalendarStats, label: "Releases" },
-	{ icon: IconUser, label: "Account" },
-	{ icon: IconFingerprint, label: "Security" },
-	{ icon: IconSettings, label: "Settings" },
-];
-
-export default function SideNav() {
-	const [active, setActive] = useState(2);
-	const { theme, setTheme } = useTheme();
-
-	const links = mockdata.map((link, index) => (
-		<NavbarLink
-			{...link}
-			key={link.label}
-			active={index === active}
-			onClick={() => setActive(index)}
-		/>
-	));
+export default function Sidebar() {
+	const pathName = usePathname();
+	console.log(pathName);
 
 	return (
-		<Navbar
-			p="md"
-			className="dark:bg-dark8 border-r border-r-gray1 fixed top-14 w-16 h-screen z-10 hidden md:block"
-		>
-			<Center>
-				<IconBrandAmongUs
-					size={30}
-					className="text-gray-800 dark:text-gray-300"
-				/>
-			</Center>
-			<Navbar.Section grow mt={50}>
-				<Stack justify="center" spacing={0} className="gap-2 items-center">
-					{links}
-				</Stack>
-			</Navbar.Section>
-		</Navbar>
+		<div className="dark:bg-dark9 border-r dark:border-r-gray2 fixed top-16 w-72 pr-2 h-screen hidden md:block overflow-y-auto">
+			<div className="flex flex-col p-4 w-full">
+				<Link
+					href="/dashboard"
+					className="flex items-center w-full hover:bg-gray-500 rounded-lg py-2 px-3 transition-all"
+				>
+					<IconReportAnalytics className="h-6 w-6" />
+					<p className="ml-4 font-medium">Dashboard</p>
+				</Link>
+				<Link
+					href="/dashboard/simulator"
+					className="flex items-center w-full hover:bg-gray-500 rounded-lg py-2 px-3 transition-all"
+				>
+					<IconChartAreaLineFilled className="h-6 w-6" />
+					<p className="ml-4 font-medium">Stock Simulator</p>
+				</Link>
+			</div>
+		</div>
 	);
 }
