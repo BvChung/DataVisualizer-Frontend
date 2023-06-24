@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import AreaChart from "@/components/charts/AreaChart";
 import ScatterChart from "@/components/charts/ScatterChart";
 import { generateMonthLabel } from "@/utils/months";
@@ -10,7 +9,6 @@ export default function Page() {
 	const data = generateLineData(12, 300, 2000);
 	return (
 		<div className="h-full">
-			<Link href="/dashboard/simulator">sim</Link>
 			<div className="my-10 flex flex-col justify-center items-center gap-4">
 				{Array.from({ length: 2 }).map((_, index) => {
 					const color = generateColor();
@@ -24,11 +22,12 @@ export default function Page() {
 									fill: true,
 									label: `Market ${index + 1}`,
 									data: data,
-									borderColor: `rgb(${color})`,
-									backgroundColor: `rgb(${color}, .2)`,
+									borderColor: color,
+									backgroundColor: color,
 								},
 							]}
 							monthTracker={data.length}
+							year={2023}
 						/>
 					);
 				})}
@@ -39,11 +38,12 @@ export default function Page() {
 							fill: true,
 							label: "Market 1",
 							data: data,
-							borderColor: "rgb(75, 192, 192)",
-							backgroundColor: "rgb(75, 192, 192, .2)",
+							borderColor: "75, 192, 192",
+							backgroundColor: "75, 192, 192",
 						},
 					]}
 					monthTracker={data.length}
+					year={2022}
 				/>
 			</div>
 		</div>

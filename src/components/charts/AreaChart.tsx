@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
 	Chart as ChartJS,
 	CategoryScale,
@@ -54,18 +54,30 @@ type AreaChartProps = {
 		backgroundColor: string;
 	}[];
 	monthTracker: number;
+	year: number;
 };
 
 export default function AreaChart({
 	labels,
 	datasets,
 	monthTracker,
+	year,
 }: AreaChartProps) {
 	const { theme } = useNextThemes();
 	const [chartData, setChartData] = useState<AreaChartProps>({
 		labels,
-		datasets,
+		datasets: datasets.map((set) => {
+			return {
+				...set,
+				borderColor: `rgb(${set.borderColor})`,
+				backgroundColor:
+					theme === "dark"
+						? `rgb(${set.backgroundColor}, .2)`
+						: `rgb(${set.backgroundColor}, .5)`,
+			};
+		}),
 		monthTracker,
+		year,
 	});
 
 	const [dataStatistics, setdataStatistics] = useState({
@@ -90,6 +102,7 @@ export default function AreaChart({
 					},
 				],
 				monthTracker: newMonth,
+				year: prev.monthTracker === 12 ? prev.year + 1 : prev.year,
 			};
 		});
 
@@ -131,15 +144,11 @@ export default function AreaChart({
 				},
 			},
 			x: {
-				color: "red",
 				grid: {
 					display: false,
 				},
 				ticks: {
 					color: themeColor,
-					// font: {
-					// 	size: 14,
-					// },
 				},
 			},
 		},
@@ -176,22 +185,26 @@ export default function AreaChart({
 			</figure>
 
 			<div className="ml-2 border-l border-gray-400 px-4">
-				<div className="flex flex-col gap-4 h-80 w-56 text-gray-800 dark:text-gray-300">
-					<div className="flex justify-between items-center w-full">
-						<p className="font-medium">Value</p>
-						<p className="font-medium">
-							{dataStatistics.currentValue.toFixed(2)}
-						</p>
+				<div className="flex flex-col gap-4 h-80 w-56 text-gray-800 dark:text-gray-200 font-medium">
+					<div className="flex justify-between items-center w-full font-medium">
+						<p>Year</p>
+						<p>{chartData.year}</p>
 					</div>
+
+					<div className="flex justify-between items-center w-full font-medium">
+						<p>Value</p>
+						<p>{dataStatistics.currentValue.toFixed(2)}</p>
+					</div>
+
 					<div className="flex justify-between w-full">
-						<p className="font-medium">Performance</p>
+						<p>Performance</p>
 
 						<div
 							className={`${
 								dataStatistics.performance > 0
 									? "text-green-600"
 									: "text-red-600"
-							} flex`}
+							} flex `}
 						>
 							{dataStatistics.performance > 0 ? (
 								<IconArrowNarrowUp />
@@ -203,17 +216,17 @@ export default function AreaChart({
 					</div>
 
 					<div className="flex justify-between w-full">
-						<p className="font-medium">Open</p>
+						<p>Open</p>
 						<p>{dataStatistics.initialValue.toFixed(2)}</p>
 					</div>
 
 					<div className="flex justify-between w-full">
-						<p className="font-medium">High</p>
+						<p>High</p>
 						<p>{dataStatistics.maxValue.toFixed(2)}</p>
 					</div>
 
 					<div className="flex justify-between w-full">
-						<p className="font-medium">Low</p>
+						<p>Low</p>
 						<p>{dataStatistics.minValue.toFixed(2)}</p>
 					</div>
 				</div>

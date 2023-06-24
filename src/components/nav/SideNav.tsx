@@ -9,25 +9,38 @@ import { usePathname } from "next/navigation";
 
 export default function Sidebar() {
 	const pathName = usePathname();
-	console.log(pathName);
+
+	const paths = [
+		{
+			href: "/dashboard",
+			name: "Dashboard",
+			icon: <IconReportAnalytics className="h-6 w-6" />,
+		},
+		{
+			href: "/dashboard/simulator",
+			name: "Stock Simulator",
+			icon: <IconChartAreaLineFilled className="h-6 w-6" />,
+		},
+	];
 
 	return (
-		<div className="dark:bg-dark9 border-r dark:border-r-gray2 fixed top-16 w-72 pr-2 h-screen hidden md:block overflow-y-auto">
-			<div className="flex flex-col p-4 w-full">
-				<Link
-					href="/dashboard"
-					className="flex items-center w-full hover:bg-gray-500 rounded-lg py-2 px-3 transition-all"
-				>
-					<IconReportAnalytics className="h-6 w-6" />
-					<p className="ml-4 font-medium">Dashboard</p>
-				</Link>
-				<Link
-					href="/dashboard/simulator"
-					className="flex items-center w-full hover:bg-gray-500 rounded-lg py-2 px-3 transition-all"
-				>
-					<IconChartAreaLineFilled className="h-6 w-6" />
-					<p className="ml-4 font-medium">Stock Simulator</p>
-				</Link>
+		<div className="dark:bg-dark9 border-r dark:border-r-gray2 fixed top-16 bottom-0 w-72 hidden md:block overflow-y-auto">
+			<div className="flex flex-col flex-grow p-4 w-full mt-2">
+				{paths.map((path, index) => {
+					const activePath = pathName === path.href ? "dark:bg-gray2" : "";
+					return (
+						<Link
+							key={index}
+							href={path.href}
+							className={`${activePath} flex items-center w-full hover:bg-gray4 bg-opacity-50 rounded-lg py-2 px-3 transition-all`}
+						>
+							{path.icon}
+							<p className="ml-4 font-medium text-gray-900 dark:text-gray-200">
+								{path.name}
+							</p>
+						</Link>
+					);
+				})}
 			</div>
 		</div>
 	);
