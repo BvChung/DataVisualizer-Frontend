@@ -4,6 +4,34 @@
 
 @layer base {
 	body {
-		@apply dark:bg-dark7 bg-white;
+		@apply dark:bg-dark7 bg-offwhite;
 	}
+}
+
+::-webkit-scrollbar {
+	display: block;
+	width: 9px;
+	height: 4px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-track-piece {
+	background: transparent;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+	background: rgb(136, 140, 148);
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: rgb(156 163 175);
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: rgb(107 114 128);
 }
