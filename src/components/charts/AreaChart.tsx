@@ -66,16 +66,7 @@ export default function AreaChart({
 	const { theme } = useNextThemes();
 	const [chartData, setChartData] = useState<AreaChartProps>({
 		labels,
-		datasets: datasets.map((set) => {
-			return {
-				...set,
-				borderColor: `rgb(${set.borderColor})`,
-				backgroundColor:
-					theme === "dark"
-						? `rgb(${set.backgroundColor}, .2)`
-						: `rgb(${set.backgroundColor}, .5)`,
-			};
-		}),
+		datasets,
 		monthTracker,
 		year,
 	});
@@ -174,8 +165,8 @@ export default function AreaChart({
 	};
 
 	return (
-		<div className="flex items-center justify-center rounded-lg bg-gray-100 dark:bg-gray2 w-fit p-4">
-			<figure className="flex items-center justify-center w-[700px] h-[320px] mb-8">
+		<div className="flex flex-col lg:flex-row items-center justify-center rounded-lg bg-gray-100 dark:bg-gray2 w-full max-w-5xl p-4">
+			<figure className="flex items-center justify-center w-full h-fit mb-5 lg:mb-0 lg:h-[320px]">
 				<Line
 					datasetIdKey="lineId"
 					options={options}
@@ -184,8 +175,8 @@ export default function AreaChart({
 				/>
 			</figure>
 
-			<div className="ml-2 border-l border-gray-400 px-4">
-				<div className="flex flex-col gap-4 h-80 w-56 text-gray-800 dark:text-gray-200 font-medium">
+			<div className="w-full lg:w-fit lg:ml-2 lg:border-l border-gray-400 lg:px-4">
+				<div className="grid grid-cols-3 lg:flex lg:flex-col justify-center lg:justify-normal gap-x-6 gap-y-2 lg:gap-4 h-16 lg:h-80 lg:w-56 text-gray-800 dark:text-gray-200 text-xs sm:text-sm md:text-base font-medium">
 					<div className="flex justify-between items-center w-full font-medium">
 						<p>Year</p>
 						<p>{chartData.year}</p>
@@ -196,7 +187,7 @@ export default function AreaChart({
 						<p>{dataStatistics.currentValue.toFixed(2)}</p>
 					</div>
 
-					<div className="flex justify-between w-full">
+					<div className="flex items-center justify-between w-full">
 						<p>Performance</p>
 
 						<div
@@ -204,14 +195,16 @@ export default function AreaChart({
 								dataStatistics.performance > 0
 									? "text-green-600"
 									: "text-red-600"
-							} flex `}
+							} flex items-center`}
 						>
-							{dataStatistics.performance > 0 ? (
-								<IconArrowNarrowUp />
-							) : (
-								<IconArrowNarrowDown />
-							)}
-							{dataStatistics.performance.toFixed(2)}
+							<p className="hidden">
+								{dataStatistics.performance > 0 ? (
+									<IconArrowNarrowUp className="h-5 w-5 lg:h-6 lg:w-6" />
+								) : (
+									<IconArrowNarrowDown className="h-5 w-5 lg:h-6 lg:w-6" />
+								)}
+							</p>
+							<p>{dataStatistics.performance.toFixed(2)}</p>
 						</div>
 					</div>
 

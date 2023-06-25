@@ -11,7 +11,7 @@ export default function DashboardLayout({
 			<Nav />
 			<div className="flex">
 				<SideNav />
-				<div className="pl-72 flex flex-col w-full overflow-auto">
+				<div className="md:pl-72 flex flex-col w-full overflow-auto">
 					{children}
 				</div>
 			</div>
