@@ -176,15 +176,15 @@ export default function AreaChart({
 			</figure>
 
 			<div className="w-full lg:w-fit lg:ml-2 lg:border-l border-gray-400 lg:px-4">
-				<div className="grid grid-cols-3 lg:flex lg:flex-col justify-center lg:justify-normal gap-x-6 gap-y-2 lg:gap-4 h-16 lg:h-80 lg:w-56 text-gray-800 dark:text-gray-200 text-xs sm:text-sm md:text-base font-medium">
-					<div className="flex justify-between items-center w-full font-medium">
+				<div className="grid grid-cols-3 lg:flex lg:flex-col justify-center lg:justify-normal gap-x-2 lg:gap-4 h-16 lg:h-80 lg:w-56 text-gray-800 dark:text-gray-200 text-xs sm:text-sm lg:text-base font-medium">
+					<div className="flex justify-between items-center w-full border-r pr-2 dark:border-gray-400 lg:border-0 lg:pr-0">
 						<p>Year</p>
 						<p>{chartData.year}</p>
 					</div>
 
-					<div className="flex justify-between items-center w-full font-medium">
+					<div className="flex justify-between items-center w-full border-r pr-2 dark:border-gray-400 lg:border-0 lg:pr-0">
 						<p>Value</p>
-						<p>{dataStatistics.currentValue.toFixed(2)}</p>
+						<p>{dataStatistics.currentValue}</p>
 					</div>
 
 					<div className="flex items-center justify-between w-full">
@@ -197,30 +197,30 @@ export default function AreaChart({
 									: "text-red-600"
 							} flex items-center`}
 						>
-							<p className="hidden">
+							<p className="hidden lg:block">
 								{dataStatistics.performance > 0 ? (
-									<IconArrowNarrowUp className="h-5 w-5 lg:h-6 lg:w-6" />
+									<IconArrowNarrowUp />
 								) : (
-									<IconArrowNarrowDown className="h-5 w-5 lg:h-6 lg:w-6" />
+									<IconArrowNarrowDown />
 								)}
 							</p>
-							<p>{dataStatistics.performance.toFixed(2)}</p>
+							<p>{dataStatistics.performance}</p>
 						</div>
 					</div>
 
-					<div className="flex justify-between w-full">
+					<div className="flex justify-between items-center w-full border-r pr-2 dark:border-gray-400 lg:border-0 lg:pr-0">
 						<p>Open</p>
-						<p>{dataStatistics.initialValue.toFixed(2)}</p>
+						<p>{dataStatistics.initialValue}</p>
 					</div>
 
-					<div className="flex justify-between w-full">
+					<div className="flex justify-between items-center w-full border-r pr-2 dark:border-gray-400 lg:border-0 lg:pr-0">
 						<p>High</p>
-						<p>{dataStatistics.maxValue.toFixed(2)}</p>
+						<p>{dataStatistics.maxValue}</p>
 					</div>
 
-					<div className="flex justify-between w-full">
+					<div className="flex justify-between items-center w-full ">
 						<p>Low</p>
-						<p>{dataStatistics.minValue.toFixed(2)}</p>
+						<p>{dataStatistics.minValue}</p>
 					</div>
 				</div>
 			</div>

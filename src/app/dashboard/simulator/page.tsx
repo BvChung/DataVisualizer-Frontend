@@ -8,7 +8,7 @@ export default function Page() {
 	return (
 		<div className="h-full">
 			<div className="my-10 flex flex-col justify-center items-center gap-4 mx-4 lg:mx-0">
-				{Array.from({ length: 2 }).map((_, index) => {
+				{Array.from({ length: 4 }).map((_, index) => {
 					const color = generateColor();
 					const data = generateLineData(12, 1000, 3000);
 					return (
@@ -29,20 +29,6 @@ export default function Page() {
 						/>
 					);
 				})}
-				<AreaChart
-					labels={generateMonthLabel(data)}
-					datasets={[
-						{
-							fill: true,
-							label: "Market 1",
-							data: data,
-							borderColor: "rgb(75, 192, 192)",
-							backgroundColor: "rgb(75, 192, 192, .4)",
-						},
-					]}
-					monthTracker={data.length}
-					year={2022}
-				/>
 			</div>
 		</div>
 	);
