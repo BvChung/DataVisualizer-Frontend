@@ -24,7 +24,7 @@ export default function SideDrawer({
 					leaveTo="opacity-0"
 				>
 					<div className="fixed inset-0 z-40">
-						<div className="flex relative z-10 flex-col w-80 h-full bg-gray-50 dark:bg-dark7 border-r border-gray-200 dark:border-dark8 md:hidden">
+						<div className="flex relative z-10 flex-col w-80 h-full bg-gray-50 dark:bg-dark7 border-r border-gray-200 dark:border-dark8 lg:hidden">
 							<button
 								onClick={closeSideDrawer}
 								className="transition-all hover:ring-1 hover:ring-gray-700 dark:hover:ring-gray-400 flex absolute top-2 right-2 justify-center items-center w-10 h-10 rounded-full active:outline-none active:ring-2 active:ring-gray-600"

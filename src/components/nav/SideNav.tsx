@@ -7,24 +7,24 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function Sidebar() {
+export default function SideNav() {
 	const pathName = usePathname();
 
 	const paths = [
 		{
-			href: "/dashboard",
+			href: "/",
 			name: "Dashboard",
 			icon: <IconReportAnalytics className="h-6 w-6" />,
 		},
 		{
-			href: "/dashboard/simulator",
+			href: "/simulator",
 			name: "Stock Simulator",
 			icon: <IconChartAreaLineFilled className="h-6 w-6" />,
 		},
 	];
 
 	return (
-		<div className="dark:bg-dark9 border-r dark:border-r-gray2 fixed top-16 bottom-0 w-72 hidden md:block overflow-y-auto">
+		<div className="dark:bg-dark9 border-r dark:border-r-gray2 fixed top-16 bottom-0 w-72 hidden lg:block overflow-y-auto">
 			<div className="flex flex-col flex-grow p-4 w-full mt-2">
 				{paths.map((path, index) => {
 					const activePath = pathName === path.href ? "dark:bg-gray2" : "";

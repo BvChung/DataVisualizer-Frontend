@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { IconMenu2 } from "@tabler/icons-react";
-import ThemeSwitch from "./ThemeSwitch";
+import ThemeSwitch from "../theme/ThemeSwitch";
 import SideDrawer from "./SideDrawer";
 
 export default function Nav() {
@@ -10,7 +10,7 @@ export default function Nav() {
 
 	useEffect(() => {
 		const handleResize = () => {
-			if (window.innerWidth > 768 && sideDrawerDisplayed) {
+			if (window.innerWidth > 1024 && sideDrawerDisplayed) {
 				closeSideDrawer();
 			}
 		};
@@ -37,9 +37,9 @@ export default function Nav() {
 	}
 	return (
 		<nav className="bg-white dark:bg-dark8 border-b dark:border-b-gray2 sticky w-full top-0 h-16 py-3 px-4 z-20">
-			<div className="flex justify-between md:justify-end items-center">
+			<div className="flex justify-between lg:justify-end items-center">
 				<button
-					className="md:hidden transition-all hover:ring-1 hover:ring-gray-700 dark:hover:ring-gray-400 p-2 rounded-full active:outline-none active:ring-2 active:ring-gray-600"
+					className="lg:hidden transition-all hover:ring-1 hover:ring-gray-700 dark:hover:ring-gray-400 p-2 rounded-full active:outline-none active:ring-2 active:ring-gray-600"
 					onClick={showSideDrawer}
 				>
 					<IconMenu2 />
