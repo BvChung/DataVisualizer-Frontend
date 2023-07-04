@@ -175,7 +175,7 @@ export default function AreaChart({
 				/>
 			</figure>
 
-			<div className="w-full lg:w-fit lg:ml-2 lg:border-l border-gray-400 lg:px-4">
+			<div className="w-full lg:w-fit lg:ml-2 lg:border-l border-gray-400 md:px-14 lg:px-4">
 				<div className="grid grid-cols-3 lg:flex lg:flex-col justify-center lg:justify-normal gap-x-2 lg:gap-4 h-16 lg:h-80 lg:w-56 text-gray-800 dark:text-gray-200 text-xs sm:text-sm lg:text-base font-medium">
 					<div className="flex justify-between items-center w-full border-r pr-2 dark:border-gray-400 lg:border-0 lg:pr-0">
 						<p>Year</p>
@@ -184,7 +184,7 @@ export default function AreaChart({
 
 					<div className="flex justify-between items-center w-full border-r pr-2 dark:border-gray-400 lg:border-0 lg:pr-0">
 						<p>Value</p>
-						<p>{dataStatistics.currentValue}</p>
+						<p>{dataStatistics.currentValue.toFixed(2)}</p>
 					</div>
 
 					<div className="flex items-center justify-between w-full">
@@ -204,23 +204,23 @@ export default function AreaChart({
 									<IconArrowNarrowDown />
 								)}
 							</p>
-							<p>{dataStatistics.performance}</p>
+							<p>{dataStatistics.performance.toFixed(2)}</p>
 						</div>
 					</div>
 
 					<div className="flex justify-between items-center w-full border-r pr-2 dark:border-gray-400 lg:border-0 lg:pr-0">
 						<p>Open</p>
-						<p>{dataStatistics.initialValue}</p>
+						<p>{dataStatistics.initialValue.toFixed(2)}</p>
 					</div>
 
 					<div className="flex justify-between items-center w-full border-r pr-2 dark:border-gray-400 lg:border-0 lg:pr-0">
 						<p>High</p>
-						<p>{dataStatistics.maxValue}</p>
+						<p>{dataStatistics.maxValue.toFixed(2)}</p>
 					</div>
 
 					<div className="flex justify-between items-center w-full ">
 						<p>Low</p>
-						<p>{dataStatistics.minValue}</p>
+						<p>{dataStatistics.minValue.toFixed(2)}</p>
 					</div>
 				</div>
 			</div>
