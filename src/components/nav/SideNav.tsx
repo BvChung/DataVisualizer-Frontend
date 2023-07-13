@@ -1,9 +1,6 @@
 "use client";
 
-import {
-	IconChartAreaLineFilled,
-	IconReportAnalytics,
-} from "@tabler/icons-react";
+import { IconChartAreaLine, IconReportAnalytics } from "@tabler/icons-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -19,7 +16,7 @@ export default function SideNav() {
 		{
 			href: "/simulator",
 			name: "Stock Simulator",
-			icon: <IconChartAreaLineFilled className="h-6 w-6" />,
+			icon: <IconChartAreaLine className="h-6 w-6" />,
 		},
 	];
 
