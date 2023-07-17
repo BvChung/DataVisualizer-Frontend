@@ -154,19 +154,14 @@ export default function AreaChart({
 				},
 			},
 			title: {
-				display: true,
-				text: "Stock Market Simulator",
-				color: themeColor,
-				font: {
-					size: 16,
-				},
+				display: false,
 			},
 		},
 	};
 
 	return (
-		<div className="flex flex-col lg:flex-row items-center justify-center rounded-lg bg-gray-100 dark:bg-gray2 w-full max-w-5xl p-4">
-			<figure className="flex items-center justify-center w-full h-fit mb-5 lg:mb-0 lg:h-[320px]">
+		<div className="flex flex-col xl:flex-row items-center justify-center rounded-lg border-[1px] border-gray-200 dark:border-gray2 shadow w-full p-4 md:p-8">
+			<figure className="flex items-center justify-center w-3/4 h-fit mb-5 xl:mb-0 md:h-[350px]">
 				<Line
 					datasetIdKey="lineId"
 					options={options}
@@ -175,14 +170,14 @@ export default function AreaChart({
 				/>
 			</figure>
 
-			<div className="w-full lg:w-fit lg:ml-2 lg:border-l border-gray-400 md:px-14 lg:px-4">
-				<div className="grid grid-cols-3 lg:flex lg:flex-col justify-center lg:justify-normal gap-x-2 lg:gap-4 h-16 lg:h-80 lg:w-56 text-gray-800 dark:text-gray-200 text-xs sm:text-sm lg:text-base">
-					<div className="flex justify-between items-center w-full border-r pr-2 dark:border-gray-400 lg:border-0 lg:pr-0">
+			<div className="w-full xl:w-1/4 xl:border-l dark:border-gray2 md:max-w-3xl xl:px-0 xl:pl-8">
+				<div className="grid grid-cols-3 xl:flex xl:flex-col justify-center xl:justify-normal gap-x-2 xl:gap-4 h-16 xl:h-80 text-gray-800 dark:text-gray-200 text-xs sm:text-sm xl:text-base">
+					<div className="flex justify-between items-center w-full border-r pr-2 dark:border-gray2 xl:border-0 xl:pr-0">
 						<p className="font-medium">Date</p>
 						<p>{`${monthMap[chartData.monthTracker]}, ${chartData.year}`}</p>
 					</div>
 
-					<div className="flex justify-between items-center w-full border-r pr-2 dark:border-gray-400 lg:border-0 lg:pr-0">
+					<div className="flex justify-between items-center w-full border-r pr-2 dark:border-gray2 xl:border-0 xl:pr-0">
 						<p className="font-medium">Value</p>
 						<p>{dataStatistics.currentValue.toFixed(2)}</p>
 					</div>
@@ -197,7 +192,7 @@ export default function AreaChart({
 									: "text-red-600"
 							} flex items-center`}
 						>
-							<p className="hidden lg:block">
+							<p className="hidden xl:block">
 								{dataStatistics.performance > 0 ? (
 									<IconArrowNarrowUp />
 								) : (
@@ -208,12 +203,12 @@ export default function AreaChart({
 						</div>
 					</div>
 
-					<div className="flex justify-between items-center w-full border-r pr-2 dark:border-gray-400 lg:border-0 lg:pr-0">
+					<div className="flex justify-between items-center w-full border-r pr-2 dark:border-gray2 xl:border-0 xl:pr-0">
 						<p className="font-medium">Open</p>
 						<p>{dataStatistics.initialValue.toFixed(2)}</p>
 					</div>
 
-					<div className="flex justify-between items-center w-full border-r pr-2 dark:border-gray-400 lg:border-0 lg:pr-0">
+					<div className="flex justify-between items-center w-full border-r pr-2 dark:border-gray2 xl:border-0 xl:pr-0">
 						<p className="font-medium">High</p>
 						<p>{dataStatistics.maxValue.toFixed(2)}</p>
 					</div>
