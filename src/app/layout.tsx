@@ -16,7 +16,7 @@ export default function RootLayout({
 			<body className={inter.className}>
 				<ThemeProvider>
 					<Nav />
-					<div className="px-4 xl:px-0 mx-auto flex">
+					<div className="px-6 md:px-4 xl:px-0 mx-auto flex">
 						<SideNav />
 
 						<div className="w-full overflow-auto">{children}</div>
