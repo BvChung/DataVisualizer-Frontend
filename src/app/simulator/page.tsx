@@ -9,14 +9,11 @@ export const metadata = {
 };
 
 export default function Page() {
-	const data = generateLineData(12, 300, 2000);
 	return (
-		<div className="my-10 sm:mx-4 xl:mx-10">
-			<div className="flex items-center w-full mb-10">
-				<h2 className="text-2xl md:text-3xl font-bold tracking-tight max-w-6xl">
-					Stock Simulator
-				</h2>
-			</div>
+		<div className="py-10 md:px-6 xl:px-12">
+			<h1 className="mb-10 text-2xl md:text-3xl text-zinc-950 dark:text-neutral-50 font-bold tracking-tight">
+				Stock Simulator
+			</h1>
 
 			<div className="flex flex-col justify-center items-center gap-6">
 				{Array.from({ length: 4 }).map((_, index) => {
