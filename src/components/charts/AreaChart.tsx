@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
 	Chart as ChartJS,
 	CategoryScale,
@@ -17,6 +17,7 @@ import { getRandInteger } from "@/utils/generateData";
 import { monthMap } from "@/utils/months";
 import { IconArrowNarrowUp, IconArrowNarrowDown } from "@tabler/icons-react";
 import { useTheme as useNextThemes } from "next-themes";
+import { chartBackgroundPlugin } from "@/utils/chartPlugin";
 
 ChartJS.register(
 	CategoryScale,
@@ -28,21 +29,6 @@ ChartJS.register(
 	Filler,
 	Legend
 );
-
-const chartBackgroundPlugin = {
-	id: "chartBackgroundColor",
-	beforeDatasetsDraw(chart: any, args: any, options: any) {
-		const {
-			ctx,
-			chartArea: { top, left, width, height },
-		} = chart;
-
-		ctx.save();
-		ctx.fillStyle = "rgb(255, 255, 255, 0)";
-		ctx.fillRect(left, top, width, height);
-		ctx.restore();
-	},
-};
 
 type AreaChartProps = {
 	labels: string[];
@@ -127,7 +113,7 @@ export default function AreaChart({
 				beginAtZero: true,
 
 				grid: {
-					color: themeColor,
+					color: theme === "dark" ? "#d4d4d8" : "#a3a3a3",
 				},
 				ticks: {
 					color: themeColor,
@@ -164,7 +150,7 @@ export default function AreaChart({
 		<div className="flex flex-col xl:flex-row items-center justify-center rounded-lg border-[1px] border-gray-300 dark:border-gray2 shadow w-full p-4 md:p-8">
 			<figure className="flex items-center justify-center w-full sm:w-3/4 mb-5 xl:mb-0 h-full md:h-[275px] lg:h-[350px]">
 				<Line
-					datasetIdKey="lineId"
+					datasetIdKey="areaId"
 					options={options}
 					data={{ labels: chartData.labels, datasets: chartData.datasets }}
 					plugins={[chartBackgroundPlugin]}
