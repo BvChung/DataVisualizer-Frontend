@@ -1,13 +1,13 @@
+import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
 
 type PathProps = {
 	className: string;
 	paths: {
 		href: string;
 		name: string;
-		icon: JSX.Element;
+		icon: React.JSX.Element;
 	}[];
 };
 

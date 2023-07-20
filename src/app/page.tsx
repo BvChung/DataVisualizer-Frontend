@@ -95,7 +95,7 @@ export default function Home() {
 				</Card>
 			</div>
 
-			<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-8">
+			<div className="flex flex-col gap-6 md:grid md:gap-4 md:grid-cols-2 lg:grid-cols-8">
 				<Card className="col-span-4">
 					<CardHeader>
 						<CardTitle>Overview</CardTitle>
