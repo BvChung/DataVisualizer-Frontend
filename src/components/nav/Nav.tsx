@@ -6,11 +6,11 @@ import ThemeSwitch from "../theme/ThemeSwitch";
 import SideDrawer from "./SideDrawer";
 
 export default function Nav() {
-	const [sideDrawerDisplayed, setSideDrawerDisplayed] = useState(false);
+	const [isOpen, setIsOpen] = useState(false);
 
 	useEffect(() => {
 		const handleResize = () => {
-			if (window.innerWidth > 1280 && sideDrawerDisplayed) {
+			if (window.innerWidth > 1280 && isOpen) {
 				closeSideDrawer();
 			}
 		};
@@ -20,39 +20,26 @@ export default function Nav() {
 		return () => {
 			window.removeEventListener("resize", handleResize);
 		};
-	}, [sideDrawerDisplayed]);
-
-	function showSideDrawer() {
-		setSideDrawerDisplayed(true);
-
-		if (typeof window !== "undefined" && window.document) {
-			document.body.style.overflow = "hidden";
-		}
-	}
+	}, [isOpen]);
 
 	function closeSideDrawer() {
-		setSideDrawerDisplayed(false);
-
-		document.body.style.overflow = "unset";
+		setIsOpen(false);
 	}
 	return (
 		<nav className="bg-white dark:bg-dark8 border-b dark:border-b-gray2 shadow-sm sticky w-full top-0 h-16 py-3 px-4 z-20">
-			<div className="flex justify-between xl:justify-end items-center">
+			<div className="flex h-full justify-between xl:justify-end items-center">
 				<button
-					className="xl:hidden transition-all hover:ring-1 hover:ring-gray-700 dark:hover:ring-gray-400 p-2 rounded-full active:outline-none active:ring-2 active:ring-gray-600"
-					onClick={showSideDrawer}
+					className="xl:hidden text-zinc-950 dark:text-gray-300 transition-all hover:ring-1 hover:ring-gray-700 dark:hover:ring-gray-400 p-1 rounded-md active:outline-none active:ring-2 active:ring-gray-600"
+					onClick={() => {
+						setIsOpen(true);
+					}}
 				>
 					<IconMenu2 />
 				</button>
 				<ThemeSwitch />
 			</div>
 
-			{sideDrawerDisplayed && (
-				<SideDrawer
-					sideDrawerDisplayed={sideDrawerDisplayed}
-					closeSideDrawer={closeSideDrawer}
-				/>
-			)}
+			<SideDrawer isOpen={isOpen} setOpen={closeSideDrawer} />
 		</nav>
 	);
 }

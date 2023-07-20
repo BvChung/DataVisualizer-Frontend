@@ -16,7 +16,7 @@ export default function ThemeSwitch() {
 
 	return (
 		<button
-			className="transition-all hover:ring-1 hover:ring-gray-700 dark:hover:ring-gray-400 p-2 rounded-full active:outline-none active:ring-2 active:ring-gray-600"
+			className="text-zinc-950 dark:text-gray-300 transition-all hover:ring-1 hover:ring-gray-700 dark:hover:ring-gray-400 p-1 rounded-md active:outline-none active:ring-2 active:ring-gray-600"
 			onClick={() => (theme === "dark" ? setTheme("light") : setTheme("dark"))}
 		>
 			{theme === "dark" ? <IconSun /> : <IconMoon />}
