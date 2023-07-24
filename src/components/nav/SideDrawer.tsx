@@ -31,10 +31,10 @@ export default function SideDrawer({ isOpen, setOpen }: SideDrawerProps) {
 			<Dialog as="div" className="relative z-50" onClose={setOpen}>
 				<Transition.Child
 					as={Fragment}
-					enter="ease-in-out duration-500"
+					enter="ease-in-out duration-300"
 					enterFrom="opacity-0"
 					enterTo="opacity-100"
-					leave="ease-in-out duration-500"
+					leave="ease-in-out duration-100"
 					leaveFrom="opacity-100"
 					leaveTo="opacity-0"
 				>
@@ -46,14 +46,14 @@ export default function SideDrawer({ isOpen, setOpen }: SideDrawerProps) {
 						<div className="pointer-events-none fixed inset-y-0 left-0 flex max-w-full pr-10">
 							<Transition.Child
 								as={Fragment}
-								enter="transform transition ease-in-out duration-500 sm:duration-700"
+								enter="transform transition ease-in-out duration-300"
 								enterFrom="-translate-x-full"
 								enterTo="translate-x-0"
-								leave="transform transition ease-in-out duration-500 sm:duration-700"
+								leave="transform transition duration-100"
 								leaveFrom="translate-x-0"
 								leaveTo="-translate-x-full"
 							>
-								<Dialog.Panel className="pointer-events-auto relative w-screen max-w-xs sm:max-w-sm">
+								<Dialog.Panel className="pointer-events-auto relative w-screen max-w-xs">
 									<Transition.Child
 										as={Fragment}
 										enter="ease-in-out duration-500"
@@ -75,12 +75,7 @@ export default function SideDrawer({ isOpen, setOpen }: SideDrawerProps) {
 										</div>
 									</Transition.Child>
 									<div className="flex h-full flex-col overflow-y-scroll bg-gray-50 dark:bg-dark7 py-6 shadow-xl">
-										<div className="px-4 sm:px-6">
-											<Dialog.Title className="text-base font-semibold leading-6 text-gray-900">
-												Panel title
-											</Dialog.Title>
-										</div>
-										<div className="relative mt-6 flex-1 px-4 sm:px-6">
+										<div className="relative mt-8 flex-1 px-6">
 											<Path
 												className="flex flex-col overflow-y-auto flex-1 gap-2"
 												paths={paths}
