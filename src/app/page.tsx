@@ -20,7 +20,7 @@ export default function Home() {
 	const data = [];
 
 	return (
-		<main className="py-10 md:px-6 xl:px-12">
+		<div className="py-10 md:px-6 xl:px-12">
 			<h1 className="mb-10 text-2xl md:text-3xl text-zinc-950 dark:text-neutral-50 font-bold tracking-tight">
 				Dashboard
 			</h1>
@@ -152,6 +152,6 @@ export default function Home() {
 					</CardContent>
 				</Card>
 			</div>
-		</main>
+		</div>
 	);
 }
