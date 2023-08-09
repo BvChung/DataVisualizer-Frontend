@@ -17,8 +17,6 @@ export const metadata = {
 };
 
 export default function Home() {
-	const data = [];
-
 	return (
 		<div className="py-10 md:px-6 xl:px-12">
 			<h1 className="mb-10 text-2xl md:text-3xl text-zinc-950 dark:text-neutral-50 font-bold tracking-tight">
