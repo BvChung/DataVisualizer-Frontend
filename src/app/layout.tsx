@@ -4,7 +4,7 @@ import ThemeProvider from "../components/theme/Provider";
 import Nav from "@/components/nav/Nav";
 import SideNav from "@/components/nav/SideNav";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], preload: true });
 
 export default function RootLayout({
 	children,
