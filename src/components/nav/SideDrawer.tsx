@@ -34,7 +34,7 @@ export default function SideDrawer({ isOpen, setOpen }: SideDrawerProps) {
 					enter="ease-in-out duration-300"
 					enterFrom="opacity-0"
 					enterTo="opacity-100"
-					leave="ease-in-out duration-100"
+					leave="ease-in-out duration-700"
 					leaveFrom="opacity-100"
 					leaveTo="opacity-0"
 				>
@@ -59,7 +59,7 @@ export default function SideDrawer({ isOpen, setOpen }: SideDrawerProps) {
 										enter="ease-in-out duration-500"
 										enterFrom="opacity-0"
 										enterTo="opacity-100"
-										leave="ease-in-out duration-500"
+										leave="ease-in-out duration-700"
 										leaveFrom="opacity-100"
 										leaveTo="opacity-0"
 									>

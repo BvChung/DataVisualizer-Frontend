@@ -23,7 +23,7 @@ export default function Nav() {
 	}, [isOpen]);
 
 	return (
-		<header className="bg-white dark:bg-dark8 border-b dark:border-b-gray2 shadow-sm sticky w-full top-0 h-16 py-3 px-4 z-20">
+		<header className="bg-white dark:bg-dark8 border-b dark:border-b-gray2 shadow-sm sticky w-full top-0 h-16 py-3 px-5 z-20">
 			<nav className="flex h-full justify-between xl:justify-end items-center">
 				<button
 					className="xl:hidden text-zinc-950 dark:text-gray-300 transition-all hover:ring-1 hover:ring-gray-700 dark:hover:ring-gray-400 p-1 rounded-md active:outline-none active:ring-2 active:ring-gray-600"
